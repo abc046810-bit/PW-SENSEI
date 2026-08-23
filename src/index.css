@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", sans-serif;
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl;
+  }
+  
+  .glow-button {
+    @apply rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold transition-all duration-300 hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] hover:-translate-y-1;
+  }
+}
+
+body {
+  @apply antialiased overflow-x-hidden bg-gray-50;
+  scroll-behavior: smooth;
+}
+
+/* Subtle background animation */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+.bg-animated-glow {
+  animation: pulse-slow 8s infinite alternate;
+}
