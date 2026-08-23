@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subject Chapters - PW SENSEI</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="app-layout">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo-icon">🎓</div>
+        <div class="sidebar-logo-text site-name-text">PW SENSEI</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="/study.html" class="nav-link">
+          <span class="nav-icon">📖</span>
+          <span>Study</span>
+        </a>
+        <a href="/study.html" class="nav-link active">
+          <span class="nav-icon">🖥️</span>
+          <span>Batches</span>
+        </a>
+        <a href="/mybatches.html" class="nav-link">
+          <span class="nav-icon">🎓</span>
+          <span>My Batches</span>
+        </a>
+        <a href="https://t.me/pwsensei_official" class="nav-link telegram-link-btn" target="_blank" rel="noopener noreferrer">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:inline-block; vertical-align:middle;"><circle cx="12" cy="12" r="12" fill="#24A1DE"/><path d="M5.4 11.972l11.455-4.664c.531-.192 1.002.13.829.896l-1.95 9.186c-.144.646-.531.802-1.077.502l-2.986-2.203-1.44 1.388c-.16.16-.293.293-.6.293l.214-3.045 5.54-5.008c.241-.214-.053-.332-.373-.12l-6.848 4.312-2.95-.923c-.642-.2-.656-.642.134-.951z" fill="#FFFFFF"/></svg>
+          <span>Join Telegram</span>
+        </a>
+        <button class="nav-link" onclick="showToast('Thank you for your generosity! Batch donation channel opening soon.', 'success')" style="width:100%; text-align:left;">
+          <span class="nav-icon">❤️</span>
+          <span>Donate Batch</span>
+        </button>
+        <button class="nav-link" onclick="showToast('Test series will be available in the upcoming mock exam cycle.', 'success')" style="width:100%; text-align:left;">
+          <span class="nav-icon">📝</span>
+          <span>Test Series</span>
+        </button>
+        <a href="https://t.me/pwsensei_official" class="nav-link contact-telegram-link" target="_blank" rel="noopener noreferrer">
+          <span class="nav-icon">💬</span>
+          <span>Contact Us</span>
+        </a>
+      </nav>
+
+      <div style="padding: 16px; border-top: 1px solid var(--card-border);">
+        <a href="/admin/login.html" style="font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; font-weight: 600;">
+          <span>⚙️</span>
+          <span>Admin Portal</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-wrapper">
+      
+      <!-- TOP HEADER -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+          <a href="#" id="back-to-batch-btn" class="back-btn">
+            <span>&larr;</span>
+            <span id="back-batch-text">Back to Batch</span>
+          </a>
+        </div>
+
+        <div class="header-right" id="header-user-area">
+          <a href="https://t.me/pwsensei_official" target="_blank" rel="noopener noreferrer" class="telegram-link-btn" style="display: flex; align-items: center; gap: 6px; padding: 7px 14px; background: rgba(56, 189, 248, 0.12); color: #0284C7; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 9999px; font-size: 13px; font-weight: 700;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#24A1DE"/><path d="M5.4 11.972l11.455-4.664c.531-.192 1.002.13.829.896l-1.95 9.186c-.144.646-.531.802-1.077.502l-2.986-2.203-1.44 1.388c-.16.16-.293.293-.6.293l.214-3.045 5.54-5.008c.241-.214-.053-.332-.373-.12l-6.848 4.312-2.95-.923c-.642-.2-.656-.642.134-.951z" fill="#FFFFFF"/></svg>
+            <span>Telegram</span>
+          </a>
+          <button class="theme-toggle-btn" onclick="toggleDarkMode()" title="Toggle Theme">🌙</button>
+        </div>
+      </header>
+
+      <!-- CONTENT CONTAINER -->
+      <main class="content-container" id="subject-main-content">
+        <div style="text-align: center; padding: 60px 0; color: var(--text-muted);">
+          Loading subject chapters and syllabus...
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const subjectId = urlParams.get('subject_id') || urlParams.get('id') || 1;
+    const batchId = urlParams.get('batch_id') || '';
+
+    let subjectData = null;
+    let allChapters = [];
+
+    async function loadSubjectDetails() {
+      const container = document.getElementById('subject-main-content');
+      try {
+        const res = await fetch(`/api/subjects/${subjectId}`);
+        if (!res.ok) {
+          container.innerHTML = `
+            <div class="empty-state-box">
+              <div class="empty-state-icon">🔍</div>
+              <h2 class="empty-state-title">Subject Not Found</h2>
+              <p class="empty-state-desc">The subject you requested is currently unavailable or has been removed.</p>
+              <a href="/study.html" class="btn-enroll" style="display: inline-block; padding: 12px 24px;">Explore Batches</a>
+            </div>
+          `;
+          return;
+        }
+
+        const data = await res.json();
+        subjectData = data;
+        allChapters = data.chapters || [];
+        renderSubjectPage(data);
+      } catch (err) {
+        console.error('Error fetching subject chapters:', err);
+        container.innerHTML = '<div style="text-align: center; color: #EF4444; padding: 60px 0;">Failed to load subject. Please try again.</div>';
+      }
+    }
+
+    function renderSubjectPage(data) {
+      const { subject, batch, chapters, summary } = data;
+      document.title = `${subject.name} - Chapters | PW SENSEI`;
+
+      // Set back button destination
+      const backBtn = document.getElementById('back-to-batch-btn');
+      if (batch && batch.id) {
+        backBtn.href = `/batch.html?id=${batch.id}`;
+        document.getElementById('back-batch-text').textContent = `Back to ${batch.title || 'Batch'}`;
+      } else if (batchId) {
+        backBtn.href = `/batch.html?id=${batchId}`;
+      } else {
+        backBtn.href = '/study.html';
+      }
+
+      const container = document.getElementById('subject-main-content');
+
+      const totalChapters = summary.total_chapters || chapters.length;
+      const totalLectures = summary.total_lectures || 0;
+      const totalNotes = summary.total_notes || 0;
+      const totalDpps = summary.total_dpps || 0;
+
+      container.innerHTML = `
+        <!-- BREADCRUMB -->
+        <nav class="content-breadcrumb">
+          <a href="/study.html">Batches</a>
+          <span class="breadcrumb-sep">&gt;</span>
+          <a href="/batch.html?id=${batch ? batch.id : batchId}">${batch ? batch.title : 'Batch'}</a>
+          <span class="breadcrumb-sep">&gt;</span>
+          <span class="breadcrumb-current">${subject.name}</span>
+        </nav>
+
+        <!-- SUBJECT HERO BANNER -->
+        <div class="subject-hero-card">
+          <div class="subject-hero-top">
+            <div class="subject-hero-icon-wrap">${subject.icon || '📚'}</div>
+            <div class="subject-hero-title-group">
+              <div class="subject-hero-badge">SUBJECT SYLLABUS</div>
+              <h1 class="subject-hero-name">${subject.name}</h1>
+              <div class="subject-hero-batch-tag">
+                <span>🎯</span>
+                <span>${batch ? batch.title : 'Comprehensive Batch'}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="subject-hero-stats">
+            <div class="stat-pill">
+              <span class="stat-icon">📂</span>
+              <span class="stat-value">${totalChapters}</span>
+              <span class="stat-label">Chapters</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-icon">📹</span>
+              <span class="stat-value">${totalLectures}</span>
+              <span class="stat-label">Lectures</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-icon">📑</span>
+              <span class="stat-value">${totalNotes}</span>
+              <span class="stat-label">Notes</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-icon">📝</span>
+              <span class="stat-value">${totalDpps}</span>
+              <span class="stat-label">DPPs & Quizzes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEARCH AND CONTROLS -->
+        <div class="chapters-header-bar">
+          <div>
+            <h2 class="section-heading">All Chapters & Content</h2>
+            <p class="section-subheading">Select any chapter below to access its Lectures, Notes, DPP Quizzes, PDFs, and Video Solutions.</p>
+          </div>
+          <div class="chapters-search-wrap">
+            <input 
+              type="text" 
+              id="chapter-search-input" 
+              class="chapter-search-input" 
+              placeholder="Search chapter name or topic..." 
+              oninput="filterChapters(this.value)"
+            />
+          </div>
+        </div>
+
+        <!-- CHAPTERS CONTAINER -->
+        <div id="chapters-list-container">
+          ${renderChaptersList(chapters, subject, batch)}
+        </div>
+      `;
+    }
+
+    function renderChaptersList(chapters, subject, batch) {
+      if (!chapters || chapters.length === 0) {
+        return renderComingSoonState(
+          'Chapters Coming Soon',
+          `The faculty is currently structuring the detailed chapter curriculum for ${subject ? subject.name : 'this subject'}. New video lectures, notes, and DPPs will appear here automatically.`
+        );
+      }
+
+      const bId = batch ? batch.id : (batchId || 1);
+      const sId = subject ? subject.id : (subjectId || 1);
+
+      return `
+        <div class="chapters-grid">
+          ${chapters.map((ch, idx) => {
+            const chNum = ch.chapter_number || (idx + 1);
+            const formattedNum = chNum < 10 ? `0${chNum}` : `${chNum}`;
+            const targetUrl = `/chapter.html?chapter_id=${ch.id}&subject_id=${sId}&batch_id=${bId}`;
+            const totalContent = ch.total_content_count || 0;
+
+            return `
+              <div class="chapter-card" id="chapter-item-${ch.id}" onclick="window.location.href='${targetUrl}'">
+                <div class="chapter-card-header">
+                  <div class="chapter-number-pill">Chapter ${formattedNum}</div>
+                  ${
+                    totalContent > 0 
+                      ? `<span class="chapter-status-tag available">Active • ${totalContent} Items</span>`
+                      : `<span class="chapter-status-tag coming-soon">Coming Soon</span>`
+                  }
+                </div>
+
+                <h3 class="chapter-card-title">${ch.title}</h3>
+                
+                ${
+                  ch.description 
+                    ? `<p class="chapter-card-desc">${ch.description}</p>`
+                    : ''
+                }
+
+                <div class="chapter-counts-row">
+                  <div class="count-chip ${ch.lectures_count > 0 ? 'has-data' : 'is-empty'}" title="Video Lectures">
+                    <span>📹</span>
+                    <span>${ch.lectures_count || 0} Lectures</span>
+                  </div>
+                  <div class="count-chip ${ch.notes_count > 0 ? 'has-data' : 'is-empty'}" title="Study Notes">
+                    <span>📑</span>
+                    <span>${ch.notes_count || 0} Notes</span>
+                  </div>
+                  <div class="count-chip ${ch.dpp_quizzes_count > 0 ? 'has-data' : 'is-empty'}" title="DPP Quizzes">
+                    <span>📝</span>
+                    <span>${ch.dpp_quizzes_count || 0} Quizzes</span>
+                  </div>
+                  <div class="count-chip ${ch.dpp_pdfs_count > 0 ? 'has-data' : 'is-empty'}" title="DPP PDFs">
+                    <span>📄</span>
+                    <span>${ch.dpp_pdfs_count || 0} DPPs</span>
+                  </div>
+                  <div class="count-chip ${ch.dpp_videos_count > 0 ? 'has-data' : 'is-empty'}" title="DPP Video Solutions">
+                    <span>🎥</span>
+                    <span>${ch.dpp_videos_count || 0} Sol.</span>
+                  </div>
+                </div>
+
+                <div class="chapter-card-footer">
+                  <div class="chapter-open-link">
+                    <span>Explore Chapter</span>
+                    <span class="chapter-arrow">&rarr;</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function renderComingSoonState(title, description) {
+      return `
+        <div class="coming-soon-card">
+          <div class="coming-soon-icon-wrap">
+            <div class="coming-soon-pulse"></div>
+            <span class="coming-soon-icon">⏳</span>
+          </div>
+          <div class="coming-soon-badge">CONTENT COMING SOON</div>
+          <h2 class="coming-soon-title">${title}</h2>
+          <p class="coming-soon-desc">${description}</p>
+          <div class="coming-soon-actions">
+            <a href="https://t.me/pwsensei_official" target="_blank" class="coming-soon-btn primary">
+              <span>✈️</span>
+              <span>Join Telegram for Release Alerts</span>
+            </a>
+            <button class="coming-soon-btn secondary" onclick="notifyMeToast()">
+              <span>🔔</span>
+              <span>Notify Me When Live</span>
+            </button>
+            <a href="/batch.html?id=${batchId || 1}" class="coming-soon-btn text">
+              <span>&larr;</span>
+              <span>Back to Batch Syllabus</span>
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function filterChapters(query) {
+      const q = (query || '').toLowerCase().trim();
+      const filtered = allChapters.filter(ch => 
+        (ch.title || '').toLowerCase().includes(q) ||
+        (ch.description || '').toLowerCase().includes(q)
+      );
+
+      const listContainer = document.getElementById('chapters-list-container');
+      if (filtered.length === 0) {
+        listContainer.innerHTML = `
+          <div class="empty-state-box" style="padding: 40px 20px;">
+            <div style="font-size: 36px; margin-bottom: 8px;">🔍</div>
+            <h3 style="font-size: 18px; font-weight: 700; color: var(--text);">No matching chapters</h3>
+            <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">No chapter found matching "${query}". Try another search term.</p>
+          </div>
+        `;
+      } else {
+        listContainer.innerHTML = renderChaptersList(filtered, subjectData.subject, subjectData.batch);
+      }
+    }
+
+    function notifyMeToast() {
+      showToast('Notification alert set! You will be notified as soon as new materials are published.', 'success');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSubjectDetails();
+    });
+  </script>
+</body>
+</html>

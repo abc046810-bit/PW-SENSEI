@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PW SENSEI - We Make Education Affordable</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    /* Landing page specific styles */
+    body.landing-page {
+      background-color: #0B0F19;
+      color: #F3F4F6;
+    }
+
+    .landing-nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .landing-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+
+    .landing-logo span.icon {
+      width: 40px;
+      height: 40px;
+      background: #22C55E;
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .landing-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .landing-hero {
+      max-width: 1000px;
+      margin: 60px auto 100px auto;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .hero-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124, 58, 237, 0.15);
+      border: 1px solid rgba(124, 58, 237, 0.4);
+      color: #A78BFA;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .landing-hero-title {
+      font-size: clamp(38px, 6vw, 68px);
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .landing-hero-title span {
+      background: linear-gradient(135deg, #A855F7 0%, #3B82F6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .landing-hero-subtitle {
+      font-size: clamp(16px, 2vw, 20px);
+      color: #9CA3AF;
+      max-width: 720px;
+      margin: 0 auto 40px auto;
+      line-height: 1.6;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-hero-primary {
+      background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+      color: #FFFFFF;
+      padding: 16px 36px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -5px rgba(124, 58, 237, 0.6);
+    }
+
+    .btn-hero-secondary {
+      background: #1E293B;
+      color: #FFFFFF;
+      border: 1px solid #334155;
+      padding: 16px 32px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.2s;
+    }
+
+    .btn-hero-secondary:hover {
+      background: #334155;
+    }
+
+    /* App Download Section */
+    .app-download-section {
+      max-width: 1100px;
+      margin: 0 auto 100px auto;
+      padding: 0 24px;
+    }
+
+    .app-download-card {
+      background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      border-radius: 28px;
+      padding: 60px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-download-content {
+      max-width: 540px;
+    }
+
+    .app-download-content h2 {
+      font-size: 34px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+    }
+
+    .app-download-content p {
+      color: #94A3B8;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .btn-download-apk {
+      background: #22C55E;
+      color: #FFFFFF;
+      padding: 16px 32px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 20px -5px rgba(34, 197, 94, 0.4);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .btn-download-apk:hover {
+      background: #16A34A;
+      transform: translateY(-2px);
+    }
+
+    /* Official Entertainment Section */
+    .official-entertainment-section {
+      max-width: 1100px;
+      margin: 0 auto 100px auto;
+      padding: 0 24px;
+    }
+
+    .entertainment-container {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid rgba(124, 58, 237, 0.35);
+      border-radius: 28px;
+      padding: 48px 40px;
+      backdrop-filter: blur(12px);
+    }
+
+    .entertainment-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .entertainment-heading {
+      font-size: 32px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .entertainment-subheading {
+      color: #94A3B8;
+      font-size: 15px;
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .entertainment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .entertainment-card {
+      background: #1E293B;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      color: inherit;
+    }
+
+    .entertainment-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(124, 58, 237, 0.6);
+      box-shadow: 0 16px 32px -8px rgba(124, 58, 237, 0.25);
+    }
+
+    .entertainment-card-thumb-wrap {
+      width: 100%;
+      height: 190px;
+      position: relative;
+      overflow: hidden;
+      background: #0F172A;
+    }
+
+    .entertainment-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .entertainment-card:hover .entertainment-card-img {
+      transform: scale(1.05);
+    }
+
+    .entertainment-badge-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(124, 58, 237, 0.25);
+      border: 1px solid rgba(124, 58, 237, 0.5);
+      color: #C4B5FD;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
+    .entertainment-card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .entertainment-card-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .entertainment-card-desc {
+      color: #94A3B8;
+      font-size: 14px;
+      line-height: 1.55;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .entertainment-card-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #A78BFA;
+      transition: gap 0.2s ease, color 0.2s ease;
+    }
+
+    .entertainment-card:hover .entertainment-card-action {
+      color: #C4B5FD;
+      gap: 12px;
+    }
+
+    /* Landing Footer */
+    .landing-footer {
+      border-top: 1px solid #1F2937;
+      padding: 40px 24px;
+      text-align: center;
+      color: #6B7280;
+      font-size: 14px;
+    }
+
+    .landing-footer a {
+      color: #9CA3AF;
+      margin: 0 12px;
+    }
+
+    .landing-footer a:hover {
+      color: #FFFFFF;
+    }
+
+    @media (max-width: 768px) {
+      .app-download-card {
+        flex-direction: column;
+        padding: 40px 24px;
+        text-align: center;
+      }
+      .app-download-content {
+        max-width: 100%;
+      }
+      .btn-download-apk {
+        width: 100%;
+        justify-content: center;
+      }
+      .entertainment-container {
+        padding: 32px 20px;
+      }
+      .entertainment-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .entertainment-card-thumb-wrap {
+        height: 170px;
+      }
+    }
+  </style>
+</head>
+<body class="landing-page">
+
+  <!-- Navbar -->
+  <header class="landing-nav">
+    <a href="/index.html" class="landing-logo">
+      <span class="icon">🎓</span>
+      <span class="site-name-text">PW SENSEI</span>
+    </a>
+    <div class="landing-nav-links">
+      <a href="/study.html" style="font-weight: 700; color: #E5E7EB;">Courses / Batches</a>
+      <a href="https://t.me/pwsensei_official" target="_blank" rel="noopener noreferrer" class="telegram-link-btn" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: #38BDF8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); padding: 6px 14px; border-radius: 9999px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#24A1DE"/><path d="M5.4 11.972l11.455-4.664c.531-.192 1.002.13.829.896l-1.95 9.186c-.144.646-.531.802-1.077.502l-2.986-2.203-1.44 1.388c-.16.16-.293.293-.6.293l.214-3.045 5.54-5.008c.241-.214-.053-.332-.373-.12l-6.848 4.312-2.95-.923c-.642-.2-.656-.642.134-.951z" fill="#FFFFFF"/></svg>
+        <span>Join Telegram</span>
+      </a>
+      
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="landing-hero">
+    <div class="hero-pill-badge">
+      <span>🚀</span>
+      <span>India's Most Trusted Free Learning Initiative</span>
+    </div>
+    <h1 class="landing-hero-title">
+      <span id="hero-heading-text">We Make Education Affordable.</span>
+    </h1>
+    <p class="landing-hero-subtitle" id="hero-subheading-text">
+      Access premium educational content, structured live batches, and comprehensive study materials from India's top educators with zero barrier to entry.
+    </p>
+    <div class="hero-cta-group">
+      <a href="/study.html" class="btn-hero-primary" id="hero-cta-btn">
+        <span>Start Learning Now</span>
+        <span>&rarr;</span>
+      </a>
+      <a href="/study.html" class="btn-hero-secondary">
+        <span>Browse Free Batches</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- App Download Section -->
+  <section class="app-download-section">
+    <div class="app-download-card">
+      <div class="app-download-content">
+        <h2>Download The Official App</h2>
+        <p>
+          Experience smooth video playback, offline lectures, interactive quizzes, and seamless DPP submissions right from your Android device anytime, anywhere.
+        </p>
+        <a href="https://example.com/pwsensei-app.apk" id="app-apk-btn" class="btn-download-apk" target="_blank">
+          <span style="font-size: 22px;">📱</span>
+          <span>Download Android App (APK)</span>
+        </a>
+      </div>
+      <div style="font-size: 120px; line-height: 1; text-align: center;">
+        📲
+      </div>
+    </div>
+  </section>
+
+  <!-- Official Entertainment Section -->
+  <section class="official-entertainment-section" id="official-entertainment-sec">
+    <div class="entertainment-container">
+      <div class="entertainment-header">
+        <div class="hero-pill-badge" style="margin: 0 auto 12px auto; display: inline-flex;">
+          <span>✨</span>
+          <span>Connect & Explore</span>
+        </div>
+        <h2 id="ent-section-title" class="entertainment-heading">Official Entertainment</h2>
+        <p id="ent-section-desc" class="entertainment-subheading">
+          Explore our official web portal and community channels for verified updates, study drives, and interactive sessions.
+        </p>
+      </div>
+
+      <div class="entertainment-grid">
+        <!-- Card 1: Official Website -->
+        <a href="https://pwsensei.live" id="ent-card-1-link" target="_blank" rel="noopener noreferrer" class="entertainment-card">
+          <div class="entertainment-card-thumb-wrap">
+            <img id="ent-card-1-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600" alt="Official Website" class="entertainment-card-img" />
+            <div class="entertainment-badge-tag">🌐 Portal</div>
+          </div>
+          <div class="entertainment-card-body">
+            <h3 id="ent-card-1-title" class="entertainment-card-title">Official Website</h3>
+            <p id="ent-card-1-desc" class="entertainment-card-desc">
+              Access our official web platform for batch enrollments, syllabus roadmaps, interactive quizzes, and test series.
+            </p>
+            <div class="entertainment-card-action">
+              <span>Visit Website</span>
+              <span class="entertainment-arrow">&rarr;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 2: Official Telegram Channel -->
+        <a href="https://t.me/pwsensei_official" id="ent-card-2-link" target="_blank" rel="noopener noreferrer" class="entertainment-card">
+          <div class="entertainment-card-thumb-wrap" style="background: #18222d; display: flex; align-items: center; justify-content: center;">
+            <img id="ent-card-2-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Official Telegram Channel" class="entertainment-card-img" style="object-fit: contain; padding: 24px;" />
+            <div class="entertainment-badge-tag" style="background: rgba(36, 161, 222, 0.25); color: #38BDF8; border-color: rgba(36, 161, 222, 0.5); display: inline-flex; align-items: center; gap: 5px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#24A1DE"/><path d="M5.4 11.972l11.455-4.664c.531-.192 1.002.13.829.896l-1.95 9.186c-.144.646-.531.802-1.077.502l-2.986-2.203-1.44 1.388c-.16.16-.293.293-.6.293l.214-3.045 5.54-5.008c.241-.214-.053-.332-.373-.12l-6.848 4.312-2.95-.923c-.642-.2-.656-.642.134-.951z" fill="#FFFFFF"/></svg>
+              <span>Telegram</span>
+            </div>
+          </div>
+          <div class="entertainment-card-body">
+            <h3 id="ent-card-2-title" class="entertainment-card-title">Official Telegram Channel</h3>
+            <p id="ent-card-2-desc" class="entertainment-card-desc">
+              Movies, Web Series & Entertainment Updates
+            </p>
+            <div class="entertainment-card-action">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#24A1DE"/><path d="M5.4 11.972l11.455-4.664c.531-.192 1.002.13.829.896l-1.95 9.186c-.144.646-.531.802-1.077.502l-2.986-2.203-1.44 1.388c-.16.16-.293.293-.6.293l.214-3.045 5.54-5.008c.241-.214-.053-.332-.373-.12l-6.848 4.312-2.95-.923c-.642-.2-.656-.642.134-.951z" fill="#FFFFFF"/></svg>
+              <span>Join Channel</span>
+              <span class="entertainment-arrow">&rarr;</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <p class="site-footer-text" style="margin-bottom: 12px;">
+      The top platform for accessible learning. &copy; 2026 PW SENSEI. All rights reserved.
+    </p>
+    <div>
+      <a href="/study.html">Explore Batches</a>
+      <a href="/mybatches.html">My Saved Batches</a>
+      <a href="https://t.me/pwsensei_official" class="telegram-link-btn" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 4px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#24A1DE"/><path d="M5.4 11.972l11.455-4.664c.531-.192 1.002.13.829.896l-1.95 9.186c-.144.646-.531.802-1.077.502l-2.986-2.203-1.44 1.388c-.16.16-.293.293-.6.293l.214-3.045 5.54-5.008c.241-.214-.053-.332-.373-.12l-6.848 4.312-2.95-.923c-.642-.2-.656-.642.134-.951z" fill="#FFFFFF"/></svg>
+        <span>Join Telegram</span>
+      </a>
+      
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('/api/settings');
+        const data = await res.json();
+        if (data.settings) {
+          const s = data.settings;
+          if (s.hero_heading) document.getElementById('hero-heading-text').textContent = s.hero_heading;
+          if (s.hero_subheading) document.getElementById('hero-subheading-text').textContent = s.hero_subheading;
+          if (s.hero_cta_text) document.querySelector('#hero-cta-btn span:first-child').textContent = s.hero_cta_text;
+          if (s.hero_cta_link) document.getElementById('hero-cta-btn').href = s.hero_cta_link;
+          if (s.app_download_link) document.getElementById('app-apk-btn').href = s.app_download_link;
+
+          // Official Entertainment dynamic content
+          if (s.ent_section_title) document.getElementById('ent-section-title').textContent = s.ent_section_title;
+          if (s.ent_section_desc) document.getElementById('ent-section-desc').textContent = s.ent_section_desc;
+
+          if (s.ent_web_title) document.getElementById('ent-card-1-title').textContent = s.ent_web_title;
+          if (s.ent_web_desc) document.getElementById('ent-card-1-desc').textContent = s.ent_web_desc;
+          if (s.ent_web_img) document.getElementById('ent-card-1-img').src = s.ent_web_img;
+          if (s.ent_web_url) document.getElementById('ent-card-1-link').href = s.ent_web_url;
+
+          if (s.ent_tg_title) document.getElementById('ent-card-2-title').textContent = s.ent_tg_title;
+          if (s.ent_tg_desc) document.getElementById('ent-card-2-desc').textContent = s.ent_tg_desc;
+          if (s.ent_tg_img) document.getElementById('ent-card-2-img').src = s.ent_tg_img;
+          if (s.ent_tg_url) document.getElementById('ent-card-2-link').href = s.ent_tg_url;
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  </script>
+</body>
+</html>
