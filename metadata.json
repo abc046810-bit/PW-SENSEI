@@ -1,0 +1,8 @@
+{
+  "name": "PW SENSEI",
+  "description": "An affordable educational platform offering premium content, live batches, study materials, and a full admin control suite.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
